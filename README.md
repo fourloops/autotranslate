@@ -3,11 +3,11 @@
 ## What?
 This will be a dictionary app with a text box in which the user can type a word. The app will show autocomplete suggestions for what the user has typed, and the user will be able to select one of these:
 
-![image showing autocompleting]()
+![image showing autocompleting](./assets/autocompleting.png)
 
-When the user selects a word, they will be shown a range of possible translations in the target language. These will appear on the right side of the screen: 
+When the user selects a word, they will be shown a range of possible translations in the target language. These will appear on the right side of the screen:
 
-![image showing translating]()
+![image showing translating](./assets/translating.png)
 
 ## Why?
 To create a user-friendly interface for translating English words.
