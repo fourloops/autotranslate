@@ -18,3 +18,5 @@ We will set up a server using Node and send requests to implement the autocomple
 We will also use a translation API to fetch translations for the words that the user selects.
 
 We will use TDD throughout, using tape and Istanbul for the back-end, and Jasmine for the front-end.
+
+The project will also be delolyed to Heroku
