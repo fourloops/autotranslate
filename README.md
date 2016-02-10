@@ -19,4 +19,9 @@ We will also use a translation API to fetch translations for the words that the 
 
 We will use TDD throughout, using tape and Istanbul for the back-end, and Jasmine for the front-end.
 
-The project will also be delolyed to Heroku
+The project will also be deployed to Heroku.
+
+## Stretch Goals
+
+* Ability to transate into multiple languages
+* Audio (pronunciations) for foreign languages
