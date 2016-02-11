@@ -19,12 +19,15 @@ function handler(request, response){
 	else if(url.indexOf("word=") > -1){
 		var inputText = url.replace("word=","");
 		response.writeHead(200, {"Content-type": "text/html"});
-		response.end( autoComp.autocomplete( inputText ).toString() );
+		var responsetext = autoComp.autocomplete( inputText ).toString();
+		response.write( responsetext );
+		console.log(responsetext);
+		response.end();
 	}
 	else{
 		fs.readFile(__dirname + url, function(error, file){
   			if (error){
-    			console.log(error);
+				response.writeHead(404, {'Content-Type' : 'text/'});
     			response.end();
   			} else {
     			var ext = url.split('.')[1];
