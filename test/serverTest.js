@@ -41,6 +41,13 @@ test("Does server return complete index.html page?", function(t){
 
 });
 
+test("Does server return 404 and 'Not found' for unknown URL?", function(t){
+	hyperquest('http://localhost:4000/unknownURL8439', function(err, res){
+		t.equal(res.statusCode, 404);
+        t.end();
+	})
+})
+
 
 test("If URL contains 'word=', server should return anything after the '='", function(t){
 	hyperquest('http://localhost:4000/word=blah', function(err, res){
