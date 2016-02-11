@@ -1,0 +1,32 @@
+{
+  "name": "autotranslate",
+  "version": "1.0.0",
+  "description": "app to translate words using autocomplete function and APIs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fourloops/autotranslate.git"
+  },
+  "keywords": [
+    "language",
+    "words",
+    "autocomplete"
+  ],
+  "author": "fourloops",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fourloops/autotranslate/issues"
+  },
+  "homepage": "https://github.com/fourloops/autotranslate#readme",
+  "devDependencies": {
+    "hyperquest": "^1.2.0",
+    "istanbul": "^0.4.2",
+    "tape": "^4.4.0"
+  },
+  "dependencies": {
+    "env2": "^2.0.4"
+  }
+}
