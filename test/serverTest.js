@@ -50,8 +50,8 @@ test("Does server return 404 and 'Not found' for unknown URL?", function(t){
 });
 
 test("Server responds with a maximum array of 10 words from a minimum 4-character user input", function(t){
-    shot.inject(server.handler, {method: 'GET', url: '/word=extr'}, function(res){
-        var actual = res;
+    shot.inject(server.handler, {method: 'GET', url: 'word=extr'}, function(res){
+        var actual = res.payload;
         var expected = ['extra', 'extrabold', 'extrabranchial', 'extrabronchial', 'extrabuccal', 'extrabulbar', 'extrabureau', 'extraburghal', 'extracalendar', 'extracalicular'].toString();
         t.deepEqual(actual, expected, "server calls the autocomplete function and responds with the expected array");
         t.end();
