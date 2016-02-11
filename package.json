@@ -4,7 +4,8 @@
   "description": "app to translate words using autocomplete function and APIs",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape ./test/*",
+    "coverage": "istanbul cover ./test/*"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "hyperquest": "^1.2.0",
     "istanbul": "^0.4.2",
+    "shot": "^3.0.1",
     "tape": "^4.4.0"
   },
   "dependencies": {
