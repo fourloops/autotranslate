@@ -1,10 +1,54 @@
-.english{
-    width: 20%
-    float: left;
-    padding: 10px;
+* {
+	/*border: 1px solid red;*/
 }
-.foreign{
-    width: 20%;
+
+.boxes{
+    width: 40vw;
+    height: 90vh;
     float: left;
-    padding: 10px;
+    margin: auto;
+    text-align: center;
+}
+
+.foreign {
+	float: right;
+	margin-right: 5%;
+}
+
+.english {
+	float: left;
+	margin-left: 5%;
+}
+
+input{
+	margin: 0;
+	margin-top: 10vh;
+	width: 40%;
+	height: 10%;
+	font-size: 2em;
+	background-color: lightblue;
+}
+
+ul {
+	list-style-type: none;
+	width: 40%;
+	display: block;
+	margin: 0 auto;
+	text-align: left;
+	padding: 0;
+	left: 30%;
+	font-size: 1.5em;
+}
+
+li {
+	background-color: gray;
+	height: 5vh;
+	width: 16vw;
+	padding-left: 6%;
+	box-sizing: border-box;
+	border: 1px solid lightgray;
+}
+
+li:hover {
+	background-color:lightblue;
 }
