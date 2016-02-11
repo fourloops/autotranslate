@@ -18,11 +18,9 @@ function handler(request, response){
 	}
 	else if(url.indexOf("word=") > -1){
 		var inputText = url.replace("/word=","");
-		console.log(inputText);
 		response.writeHead(200, {"Content-type": "text/html"});
 		var responsetext = autoComp.autocomplete( inputText ).toString();
 		response.write( responsetext );
-		console.log(responsetext);
 		response.end();
 	}
 	else{

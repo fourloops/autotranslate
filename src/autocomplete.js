@@ -22,5 +22,3 @@ module.exports = {
     words        :   words,
     autocomplete :   autocomplete
 }
-
-console.log(autocomplete('extr').toString());
