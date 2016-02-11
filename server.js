@@ -1,3 +1,5 @@
+require('env2')('config.env');
+
 var http = require("http");
 
 var fs = require("fs");
