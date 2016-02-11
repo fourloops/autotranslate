@@ -18,8 +18,16 @@ function handler(request, response){
 		response.end(url.split("word=")[1]);
 	}
 	else{
-		response.writeHead(404, {"Content-type": "text/html"});
-		response.end("Not found");
+		fs.readFile(__dirname + url, function(error, file){
+  			if (error){
+    			console.log(error);
+    			response.end();
+  			} else {
+    			var ext = url.split('.')[1];
+			    response.writeHead(200, {'Content-Type' : 'text/' + ext});
+			    response.end(file);
+  			}
+		});
 	}
 }
 

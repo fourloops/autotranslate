@@ -1,3 +1,10 @@
 .english{
-    width: 50%;
+    width: 20%
+    float: left;
+    padding: 10px;
+}
+.foreign{
+    width: 20%;
+    float: left;
+    padding: 10px;
 }
