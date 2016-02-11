@@ -17,7 +17,8 @@ function handler(request, response){
 		});
 	}
 	else if(url.indexOf("word=") > -1){
-		var inputText = url.replace("word=","");
+		var inputText = url.replace("/word=","");
+		console.log(inputText);
 		response.writeHead(200, {"Content-type": "text/html"});
 		var responsetext = autoComp.autocomplete( inputText ).toString();
 		response.write( responsetext );
@@ -25,7 +26,7 @@ function handler(request, response){
 		response.end();
 	}
 	else{
-		fs.readFile(__dirname + url, function(error, file){
+		fs.readFile(__dirname.replace("/src", "") + url, function(error, file){
   			if (error){
 				response.writeHead(404, {'Content-Type' : 'text/'});
     			response.end();

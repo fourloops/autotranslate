@@ -1,8 +1,9 @@
 //this function reads what is in the textbox
 
-var array = ['word', 'ward', 'warlock', 'warrior', 'wanton', 'wonton', 'wally', 'wand', 'want', 'warden'];
-
-listifyWords(array);
+window.addEventListener('keyup', function(k){
+	document.getElementById('results').innerHTML='';
+	checkLength();
+});
 
 function checkLength(){
 	var word = document.getElementById('myInput').value;
@@ -17,14 +18,12 @@ function requestWords(word){
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			var res = xhr.responseText;
-			result = res.substr(1, res.length-2)
-						.replace(/\'/g, '')
-						.split(', ');
+			result = res.split(',');
 		}
 	}
 	xhr.open("GET", 'word=' + word, false);
 	xhr.send();
-	return result;
+	listifyWords(result);
 }
 
 function listifyWords(array){
