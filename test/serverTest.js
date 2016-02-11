@@ -33,11 +33,14 @@ test("Does server return complete index.html page?", function(t){
 		res.on('end', function(){
 			fs.readFile(__dirname + '/../index.html', function(err, indexText) {
 				t.notEqual(data, indexText);
-				t.end();
-			});
+                t.end();
+    		});
 		});
 	});
+
+
 });
+
 
 test("If URL contains 'word=', server should return anything after the '='", function(t){
 	hyperquest('http://localhost:4000/word=blah', function(err, res){
@@ -50,4 +53,9 @@ test("If URL contains 'word=', server should return anything after the '='", fun
 			t.end();
 		});
 	});
+});
+
+test("teardown", function(t){
+    server.server.close();
+    t.end();
 });

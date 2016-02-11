@@ -11,7 +11,7 @@ function handler(request, response){
 		fs.readFile(__dirname + '/index.html', function(err, data) {
 			if(err) throw err;
 			response.end(data);
-		})
+		});
 	}
 	else if(url.indexOf("word=") > -1){
 		response.writeHead(200, {"Content-type": "text/html"});
@@ -23,10 +23,13 @@ function handler(request, response){
 	}
 }
 
-module.exports = {
-	handler: handler
-}
+var server = http.createServer(handler);
 
-http.createServer(handler).listen(port);
+module.exports = {
+	handler: handler,
+	server: server
+};
+
+server.listen(port);
 
 console.log("Local host at " + port);
