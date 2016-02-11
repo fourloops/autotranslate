@@ -2,7 +2,7 @@ var test = require('tape');
 var hyperquest = require('hyperquest');
 var server = require('../src/server.js');
 var fs = require('fs');
-var shot = require('')
+var shot = require('shot');
 
 test('Does server respond?', function(t) {
     hyperquest('http://localhost:4000', function(err, res) {
