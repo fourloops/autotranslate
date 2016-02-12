@@ -1,5 +1,3 @@
-//this function reads what is in the textbox
-
 window.addEventListener('keyup', function(k){
 	document.getElementById('results').innerHTML='';
 	checkLength();
@@ -9,15 +7,17 @@ function checkLength(){
 	var word = document.getElementById('myInput').value;
 	if(word.length < 2) {
 		return;
-	} else requestWords(word, listifyWords);
+	} else {
+		requestWords(word);
+	}
 }
 
-function requestWords(word, callback){
+function requestWords(word){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			var res = xhr.responseText.split(',');
-			callback(res);
+			listifyWords(res);
 		}
 	};
 	xhr.open("GET", 'word=' + word);
