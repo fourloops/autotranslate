@@ -4,36 +4,33 @@ var yandex = require('./yandex.js');
 var fs = require("fs");
 var autoComp = require("./autocomplete.js");
 
-var port = process.env.PORT || 8000;
+var port = process.env.PORT;
 
-function handler(request, response) {
-	var url = request.url;
+function handler(req, res) {
+	var url = req.url;
 	if (url.length === 1) {
-		response.writeHead(200, {"Content-type": "text/html"});
+		res.writeHead(200, {"Content-type": "text/html"});
 		fs.readFile(__dirname.replace("/src", "") + '/index.html', function(err, data) {
-			response.end(data);
+			res.end(data);
 		});
 	} else if (url.indexOf("word=") > -1) {
-		var inputText = url.replace("/word=","");
-		response.writeHead(200, {"Content-type": "text/html"});
-		var responsetext = autoComp.autocomplete( inputText ).toString();
-		response.write( responsetext );
-		response.end();
+		var responseText = autoComp.autocomplete(url).toString();
+		res.writeHead(200, {"Content-type": "text/html"});
+		res.end(responseText);
 	} else if(url.indexOf('def=') > -1){
-		var wordToTranslate = url.replace("/def=","");
-		response.writeHead(200, {"Content-type": "text/html"});
-		yandex.translate(wordToTranslate, 'de', function(translation){
-	        response.end(translation);
+		yandex.translate(url, function(translation){
+	        res.writeHead(200, {"Content-type": "text/html"});
+	        res.end(translation);
 	    });
 	} else {
 		fs.readFile(__dirname.replace("/src", "") + url, function(error, file){
   			if (error) {
-				response.writeHead(404, {'Content-Type' : 'text/'});
-    			response.end('NOT FOUND!');
+				res.writeHead(404, {'Content-Type' : 'text/'});
+    			res.end('NOT FOUND!');
   			} else {
     			var ext = url.split('.')[1];
-			    response.writeHead(200, {'Content-Type' : 'text/' + ext});
-			    response.end(file);
+			    res.writeHead(200, {'Content-Type' : 'text/' + ext});
+			    res.end(file);
   			}
 		});
 	}
