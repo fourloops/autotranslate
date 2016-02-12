@@ -55,6 +55,15 @@ tape("Server responds with a maximum array of 10 words from a minimum 4-characte
     });
 });
 
+tape("Server responds to 'translation' request with correct translated word", function(t){
+    shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000/def=hello'}, function(res){
+        var actual = res.payload;
+        var expected = 'Hallo';
+        t.equal(actual, expected, "server returns expected German word");
+        t.end();
+    });
+});
+
 // -------- AUTOCOMPLETE TESTS ----------- //
 
 tape('autocomplete should read "words.txt" file and save it with the correct number of lines',function(t){
