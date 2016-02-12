@@ -2,7 +2,8 @@ var fs = require("fs");
 
 var words = fs.readFileSync("words.txt", "utf8").split("\n");
 
-function autocomplete( userInput ){
+function autocomplete( url ){
+    var userInput = url.replace("/word=","");
     var results = [];
     var check = '^' + userInput.toLowerCase();
     var re = new RegExp( check );
@@ -21,4 +22,4 @@ function autocomplete( userInput ){
 module.exports = {
     words        :   words,
     autocomplete :   autocomplete
-}
+};
