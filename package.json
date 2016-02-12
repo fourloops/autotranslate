@@ -26,9 +26,11 @@
     "hyperquest": "^1.2.0",
     "istanbul": "^0.4.2",
     "shot": "^3.0.1",
-    "tape": "^4.4.0"
+    "tape": "^4.4.0",
+    "xhr-browserify": "0.0.4"
   },
   "dependencies": {
-    "env2": "^2.0.4"
+    "env2": "^2.0.4",
+    "request": "^2.69.0"
   }
 }
