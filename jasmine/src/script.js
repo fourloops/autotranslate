@@ -9,21 +9,19 @@ function checkLength(){
 	var word = document.getElementById('myInput').value;
 	if(word.length < 2) {
 		return;
-	} else requestWords(word);
+	} else requestWords(word, listifyWords);
 }
 
-function requestWords(word){
+function requestWords(word, callback){
 	var xhr = new XMLHttpRequest();
-	var result = [];
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
-			var res = xhr.responseText;
-			result = res.split(',');
+			var res = xhr.responseText.split(',');
+			callback(res);
 		}
 	};
-	xhr.open("GET", 'word=' + word, false);
+	xhr.open("GET", 'word=' + word);
 	xhr.send();
-	listifyWords(result);
 }
 
 function listifyWords(array){
