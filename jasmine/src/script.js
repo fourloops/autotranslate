@@ -20,7 +20,7 @@ function requestWords(word){
 			var res = xhr.responseText;
 			result = res.split(',');
 		}
-	}
+	};
 	xhr.open("GET", 'word=' + word, false);
 	xhr.send();
 	listifyWords(result);

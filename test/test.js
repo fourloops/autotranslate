@@ -1,10 +1,61 @@
 var tape = require('tape');
-var hyper = require('hyperquest');
 var shot = require('shot');
 var server = require('../src/server.js');
 var auto = require('../src/autocomplete.js');
 var fs = require('fs');
 
+// ----------- SERVER TESTS -------------
+
+tape('Does server respond successfully?', function(t) {
+    shot.inject(server.handler, {method: 'GET', url:'/'}, function(res) {
+        t.equal(res.statusCode, 200, 'Server responds!');
+        t.end();
+    });
+});
+
+tape("Does server return html page for index?", function(t){
+    shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000'}, function(res){
+        t.notEqual(res.payload.indexOf("<!DOCTYPE html>"), -1, 'server returns html page');
+        t.end();
+    });
+});
+
+tape("Does server return complete index.html page?", function(t){
+    shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000'}, function(res){
+        fs.readFile(__dirname.replace("/test", "") + '/index.html', function(err, indexText) {
+            t.equal(res.payload, indexText.toString(), 'server returns index page');
+            t.end();
+        });
+    });
+});
+
+tape("Does server return css or javascript pages", function(t){
+    shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000/style.css'}, function(res){
+        fs.readFile(__dirname.replace("/test", "") + '/style.css', function(err, cssText) {
+            t.equal(res.payload, cssText.toString(), 'server returns css page');
+            t.end();
+        });
+    });
+});
+
+tape("Does server return 404 and 'Not found' for unknown URL?", function(t){
+    shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000/unknownURL8439'}, function(res){
+        t.equal(res.statusCode, 404, "server returns 404");
+        t.end();
+    });
+});
+
+
+tape("Server responds with a maximum array of 10 words from a minimum 4-character user input", function(t){
+    shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000/word=extr'}, function(res){
+        var actual = res.payload;
+        var expected = 'extra,extrabold,extrabranchial,extrabronchial,extrabuccal,extrabulbar,extrabureau,extraburghal,extracalendar,extracalicular';
+        t.deepEqual(actual, expected, "server calls the autocomplete function and responds with the expected array");
+        t.end();
+    });
+});
+
+// -------- AUTOCOMPLETE TESTS ----------- //
 
 tape('autocomplete should read "words.txt" file and save it with the correct number of lines',function(t){
     var linesInFile = auto.words.length;
@@ -18,7 +69,7 @@ tape('autocomplete should have the correct content',function(t){
     var expected1   = "A";
     t.equals(actual1,expected1,"words.txt has the correct 1st word");
 
-    var actual2     = auto.words[auto.words.length-2];
+    var actual2     = auto.words[auto.words.length - 2];
     var expected2   = "Zyzzogeton";
     t.equals(actual2,expected2,"words.txt has the correct last word");
 
@@ -58,7 +109,7 @@ tape('returned array should be case-insensitive', function(t){
 
 tape('user input matches words in wods.txt even if it includes capital letters', function(t){
     var actual = auto.autocomplete( 'Bump' );
-    var expected = ['bump', 'bumpee', 'bumper', 'bumperette', 'bumpily', 'bumpiness', 'bumping', 'bumpingly', 'bumpkin', 'bumpkinet']
+    var expected = ['bump', 'bumpee', 'bumper', 'bumperette', 'bumpily', 'bumpiness', 'bumping', 'bumpingly', 'bumpkin', 'bumpkinet'];
     t.deepEqual(actual, expected, '"Bump" input still returns an array of ten words');
     t.end();
 });
@@ -67,9 +118,13 @@ tape('time taken by the function should be less than 0.5s for ',function(t){
     var tStart  = new Date().getTime();
     var result = auto.autocomplete('unpa');
     var tEnd    = new Date().getTime();
-    var timeTaken = tEnd-tStart;
-    console.log(result);
+    var timeTaken = tEnd - tStart;
     console.log(timeTaken);
     t.ok(timeTaken < 500, 'autocomplete worst case takes less than 1s');
+    t.end();
+});
+
+tape("teardown", function(t){
+    server.server.close();
     t.end();
 });
