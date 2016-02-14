@@ -1,8 +1,8 @@
-window.addEventListener('keyup', function(k){
-	document.getElementById('translations').innerHTML='';
-	document.getElementById('suggestions').innerHTML='';
-	checkLength2();
-});
+(function(){
+
+// window.addEventListener('keyup', function(k){
+// 	checkLength();
+// });
 
 // function checkLength(){
 // 	var word = document.getElementById('myInput').value;
@@ -35,18 +35,49 @@ window.addEventListener('keyup', function(k){
 // }
 
 // FOR TRANSLATIONS AS WELL
+
 var currentLang = 'es';
+
+document.getElementById('de').addEventListener('click', function(e){
+	currentLang = 'de';
+	checkLength2();
+	document.getElementById('fr').classList.remove('currentLanguage');
+	document.getElementById('es').classList.remove('currentLanguage');
+	document.getElementById('de').classList.add('currentLanguage');
+});
+
+document.getElementById('fr').addEventListener('click', function(e){
+	currentLang = 'fr';
+	checkLength2();
+	document.getElementById('de').classList.remove('currentLanguage');
+	document.getElementById('es').classList.remove('currentLanguage');
+	document.getElementById('fr').classList.add('currentLanguage');
+});
+
+document.getElementById('es').addEventListener('click', function(e){
+	currentLang = 'es';
+	checkLength2();
+	document.getElementById('de').classList.remove('currentLanguage');
+	document.getElementById('fr').classList.remove('currentLanguage');
+	document.getElementById('es').classList.add('currentLanguage');
+});
+
+window.addEventListener('keyup', function(k){
+	document.getElementById('translations').innerHTML='';
+	document.getElementById('suggestions').innerHTML='';
+	checkLength2();
+});
 
 function checkLength2(){
 	var word = document.getElementById('myInput').value;
 	if(word.length < 2) {
 		return;
 	} else {
-		requestWordsAndTranslations(word, currentLang);
+		requestWordsAndTranslations(word);
 	}
 }
 
-function requestWordsAndTranslations(word, lang){
+function requestWordsAndTranslations(word){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
@@ -54,7 +85,7 @@ function requestWordsAndTranslations(word, lang){
 			listifyTranslations(res.results);
 		}
 	};
-	xhr.open("GET", 'wordAndTrans=' + word + '&lang=' + lang);
+	xhr.open("GET", 'wordAndTrans=' + word + '&lang=' + currentLang);
 	xhr.send();
 }
 
@@ -72,7 +103,5 @@ function listifyTranslations(array){
 	});
 }
 
-
-
-
+})();
 
