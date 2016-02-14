@@ -1,4 +1,8 @@
 # autotranslate
+The lightning-fast translation app from [fourloops](https://github.com/fourloops).
+
+[![Dependency Status](https://david-dm.org/fourloops/autotranslate.svg)](https://david-dm.org/fourloops/autotranslate)
+[![devDependency Status](https://david-dm.org/fourloops/autotranslate/dev-status.svg)](https://david-dm.org/fourloops/autotranslate#info=devDependencies)
 
 ## What?
 This will be a dictionary app with a text box in which the user can type a word. The app will show autocomplete suggestions for what the user has typed, and the user will be able to select one of these:
