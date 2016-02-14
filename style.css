@@ -1,11 +1,10 @@
 * {
-	/*border: 1px solid red;*/
+	border: 1px solid red;
 }
 
 .boxes{
     width: 40vw;
     height: 90vh;
-    float: left;
     margin: auto;
     text-align: center;
 }
@@ -20,10 +19,11 @@
 	margin-left: 5%;
 }
 
-input{
-	margin: 0;
+input, .language {
+	display: block;
+	margin: 0 auto;
 	margin-top: 10vh;
-	width: 40%;
+	width: 60%;
 	height: 10%;
 	font-size: 2em;
 	background-color: lightblue;
@@ -31,7 +31,7 @@ input{
 
 ul {
 	list-style-type: none;
-	width: 40%;
+	width: 60%;
 	display: block;
 	margin: 0 auto;
 	text-align: left;
@@ -43,10 +43,11 @@ ul {
 li {
 	background-color: gray;
 	height: 5vh;
-	width: 16vw;
+	width: 24vw;
 	padding-left: 6%;
 	box-sizing: border-box;
 	border: 1px solid lightgray;
+	overflow: auto;
 }
 
 li:hover {

@@ -17,6 +17,10 @@ function handler(req, res) {
 		var responseText = autoComp.autocomplete(url).toString();
 		res.writeHead(200, {"Content-type": "text/html"});
 		res.end(responseText);
+	} else if (url.indexOf("wordAndTrans=") > -1) {
+		var responseJSON = autoComp.autotranslate(url);
+		res.writeHead(200, {"Content-type": "text/html"});
+		res.end(responseJSON);
 	} else if(url.indexOf('def=') > -1){
 		yandex.translate(url, function(translation){
 	        res.writeHead(200, {"Content-type": "text/html"});
