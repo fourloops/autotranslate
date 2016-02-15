@@ -30,6 +30,7 @@
     "xhr-browserify": "0.0.4"
   },
   "dependencies": {
+    "codecov": "^1.0.1",
     "env2": "^2.0.4",
     "request": "^2.69.0"
   }
