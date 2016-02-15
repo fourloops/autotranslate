@@ -1,6 +1,21 @@
 * {
-	/*border: 1px solid red;*/
+	border: 1px solid transparent;
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url(http://greatphotojournalism.com/thumbs2/1440x960/fotos/store/res_15479.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    webkit-transition: background-image 1.5s;
+    transition: background-image 1.5s;
+}
+
 
 .boxes{
     width: 40vw;
@@ -22,13 +37,12 @@
 
 .langButtons {
 	display: block;
-	margin: 0 auto;
+	margin: 0;
 	z-index: 1;
 	float: left;
 	width: 7vw;
 	height: 40vh;
 	margin-top: 10vh;
-	margin-left: 1.5vh;
 }
 
 button {
@@ -58,8 +72,8 @@ input, .language {
 	height: 10%;
 	font-size: 2em;
 	background-color: lightblue;
-    -webkit-appearance: none; 
-    -moz-appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
     border: 2px solid #eee;
     box-sizing: border-box;
     padding-left: 1vw;
@@ -98,4 +112,17 @@ li {
 
 li:hover {
 	background-color:lightblue;
+}
+.focus {
+    background-color:lightblue;
+}
+.definition {
+    /*opacity: 0;*/
+    height: 51vh;
+    width: 25vw;
+    margin-left: 12.5%;
+    margin-top: 13.3%;
+}
+.visible {
+    opacity: 1;
 }
