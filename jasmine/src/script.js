@@ -40,7 +40,7 @@ var currentLang = 'es';
 
 document.getElementById('de').addEventListener('click', function(e){
 	currentLang = 'de';
-	checkLength2();
+	checkLength();
 	document.getElementById('fr').classList.remove('currentLanguage');
 	document.getElementById('es').classList.remove('currentLanguage');
 	document.getElementById('de').classList.add('currentLanguage');
@@ -48,7 +48,7 @@ document.getElementById('de').addEventListener('click', function(e){
 
 document.getElementById('fr').addEventListener('click', function(e){
 	currentLang = 'fr';
-	checkLength2();
+	checkLength();
 	document.getElementById('de').classList.remove('currentLanguage');
 	document.getElementById('es').classList.remove('currentLanguage');
 	document.getElementById('fr').classList.add('currentLanguage');
@@ -56,7 +56,7 @@ document.getElementById('fr').addEventListener('click', function(e){
 
 document.getElementById('es').addEventListener('click', function(e){
 	currentLang = 'es';
-	checkLength2();
+	checkLength();
 	document.getElementById('de').classList.remove('currentLanguage');
 	document.getElementById('fr').classList.remove('currentLanguage');
 	document.getElementById('es').classList.add('currentLanguage');
@@ -65,10 +65,10 @@ document.getElementById('es').addEventListener('click', function(e){
 window.addEventListener('keyup', function(k){
 	document.getElementById('translations').innerHTML='';
 	document.getElementById('suggestions').innerHTML='';
-	checkLength2();
+	checkLength();
 });
 
-function checkLength2(){
+function checkLength(){
 	var word = document.getElementById('myInput').value;
 	if(word.length < 2) {
 		return;
@@ -85,7 +85,7 @@ function requestWordsAndTranslations(word){
 			listifyTranslations(res.results);
 		}
 	};
-	xhr.open("GET", 'wordAndTrans=' + word + '&lang=' + currentLang);
+	xhr.open("GET", 'word=' + word + '&lang=' + currentLang);
 	xhr.send();
 }
 

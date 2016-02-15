@@ -15,10 +15,6 @@ function handler(req, res) {
 			res.end(data);
 		});
 	} else if (url.indexOf("word=") > -1) {
-		var responseText = autoComp.autocomplete(url).toString();
-		res.writeHead(200, {"Content-type": "text/html"});
-		res.end(responseText);
-	} else if (url.indexOf("wordAndTrans=") > -1) {
 		var responseJSON = autoComp.autotranslate(url);
 		res.writeHead(200, {"Content-type": "text/html"});
 		res.end(responseJSON);
