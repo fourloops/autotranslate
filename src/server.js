@@ -4,6 +4,8 @@ var yandex = require('./yandex.js');
 var fs = require("fs");
 var autoComp = require("./autocomplete.js");
 var define	= require('./define.js');
+var pictures = require('./pixabay.js');
+
 
 var port = process.env.PORT;
 
@@ -20,14 +22,22 @@ function handler(req, res) {
 		res.end(responseJSON);
 	} else if(url.indexOf('def=') > -1){
 		var term = url.split('def=')[1].split('&')[0];
+		res.writeHead( 200, { "Content-type": "text/html" } );
+
+		var counter = 0;
+		var def = '';
 		define.definitionGetter( term, function( apiResp ){
-			res.writeHead( 200, { "Content-type": "text/html" } );
-			res.end( define.definitionFilter( apiResp ) );
+			def += define.definitionFilter( apiResp );
+			counter++
+			if (counter === 2) { res.end(def + '\n' + img); }
 		});
-		// yandex.translate(url, function(translation){
-	    //     res.writeHead(200, {"Content-type": "text/html"});
-	    //     res.end(translation);
-	    // });
+		var img = '';
+		pictures.pixabayGetter( term, function ( imgApiResp ){
+			img += pictures.imgURLGetter( imgApiResp );
+			counter++
+			if (counter === 2) { res.end(def + '\n' + img); }
+		});
+
 	} else {
 		fs.readFile(__dirname.replace("/src", "") + url, function(error, file){
   			if (error) {
