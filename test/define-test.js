@@ -23,13 +23,19 @@ tape('Check definitionGetter\'s returned array of objects contain partOfSpeech a
 });
 
 tape('Check definitionFilter returns a stringified object containing only the partOfSpeech and text keys of the first entry', function(t) {
-    var expected1 = {
-        text: "Any of various fleshy fungi of the class Basidiomycota, characteristically having an umbrella-shaped cap borne on a stalk, especially any of the edible kinds, as those of the genus Agaricus.",
-        partOfSpeech: 'noun'
-    }
+    var expected1 = '{"text":"Any of various fleshy fungi of the class Basidiomycota, characteristically having an umbrella-shaped cap borne on a stalk, especially any of the edible kinds, as those of the genus Agaricus.","partOfSpeech":"noun"}'
     define.definitionGetter('mushroom',function(respString){
         var actual1 = define.definitionFilter(respString);
-        t.deepEqual(actual1,expected1, 'definitionFilter works for the word "mushroom".');
+        t.equal(actual1, expected1, 'definitionFilter works for the word "mushroom".');
+        t.end();
+    });
+});
+
+tape('Check definitionFilter returns another stringified object containing only the partOfSpeech and text keys of the first entry', function(t) {
+    var expected2 = '{"text":"An instinctive physical desire, especially one for food or drink.","partOfSpeech":"noun"}'
+    define.definitionGetter('appetite',function(respString){
+        var actual2 = define.definitionFilter(respString);
+        t.equal(actual2, expected2, 'definitionFilter works for the word "appetite".');
         t.end();
     });
 });

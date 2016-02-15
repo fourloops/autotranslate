@@ -15,9 +15,9 @@ function definitionGetter( word, callback ){
     xhr.send();
 }
 
-function definitionFilter( respText ) {
-    var firstEntry = JSON.parse(respText)[0]
-    return {text : firstEntry.text, partOfSpeech : firstEntry.partOfSpeech};
+function definitionFilter( apiResp ) {
+    var firstEntry = JSON.parse( apiResp )[0]
+    return JSON.stringify({text : firstEntry.text, partOfSpeech : firstEntry.partOfSpeech});
 }
 
 // function definitionFilter( term ) {
