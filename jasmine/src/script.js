@@ -3,21 +3,24 @@
 var currentLang = 'es';
 var count = -1;
 
+function toggleClasses(lang){
+	document.getElementById('fr').classList.remove('currentLanguage');
+	document.getElementById('es').classList.remove('currentLanguage');
+	document.getElementById('de').classList.remove('currentLanguage');
+	document.getElementById(lang).classList.add('currentLanguage');
+}
+
 document.getElementById('de').addEventListener('click', function(e){
 	currentLang = 'de';
 	checkLength();
-	document.getElementById('fr').classList.remove('currentLanguage');
-	document.getElementById('es').classList.remove('currentLanguage');
-	document.getElementById('de').classList.add('currentLanguage');
+	toggleClasses('de');
 	document.body.style.backgroundImage = 'url(https://upload.wikimedia.org/wikipedia/commons/a/a6/Brandenburger_Tor_abends.jpg)';
 });
 
 document.getElementById('fr').addEventListener('click', function(e){
 	currentLang = 'fr';
 	checkLength();
-	document.getElementById('de').classList.remove('currentLanguage');
-	document.getElementById('es').classList.remove('currentLanguage');
-	document.getElementById('fr').classList.add('currentLanguage');
+	toggleClasses('fr');
 	document.body.style.backgroundImage = 'url(http://www.destination360.com/contents/pictures/paris/notre-dame-paris-hours.jpg)';
 
 });
@@ -25,9 +28,7 @@ document.getElementById('fr').addEventListener('click', function(e){
 document.getElementById('es').addEventListener('click', function(e){
 	currentLang = 'es';
 	checkLength();
-	document.getElementById('de').classList.remove('currentLanguage');
-	document.getElementById('fr').classList.remove('currentLanguage');
-	document.getElementById('es').classList.add('currentLanguage');
+	toggleClasses('es');
 	document.body.style.backgroundImage = 'url(http://greatphotojournalism.com/thumbs2/1440x960/fotos/store/res_15479.jpg)';
 });
 
