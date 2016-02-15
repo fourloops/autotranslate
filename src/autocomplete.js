@@ -17,13 +17,13 @@ var wordsFR = fs.readFileSync("wordsFR.txt", "utf8").split("\n")
 
 function autotranslate( url ){
     var lang = url.split('&lang=')[1];
-    var word = url.split('&lang=')[0].replace('/wordAndTrans=', '').toLowerCase();
+    var word = url.split('&lang=')[0].replace('/word=', '').toLowerCase();
     var dict;
     if(lang === 'es'){
         dict = wordsES;
     } else if (lang === 'de') {
         dict = wordsDE;
-    } else if (lang === 'fr') {
+    } else {
         dict = wordsFR;
     }
     // strip URL to just the word, lowercase, with '^' for regex

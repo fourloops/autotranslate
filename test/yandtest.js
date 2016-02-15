@@ -31,3 +31,8 @@ tape("Server responds to 'translation' request with correct translated word", fu
         t.end();
     });
 });
+
+tape("teardown", function(t){
+    server.server.close();
+    t.end();
+});

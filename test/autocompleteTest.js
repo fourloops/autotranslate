@@ -1,6 +1,5 @@
 var tape = require('tape');
 var shot = require('shot');
-var server = require('../src/server.js');
 var auto = require('../src/autocomplete.js');
 var fs = require('fs');
 
@@ -42,52 +41,126 @@ tape('autocomplete should have the correct content',function(t){
     t.end();
 });
 
-tape("autocomplete receives requests from server.js", function(t){
-    shot.inject(server.handler, {method: 'GET', url:'/'}, function(res) {
-        t.equal(res.statusCode, 200, 'Success!');
-        t.end();
-    });
-});
+tape('autocomplete returns an array with the first results of a 3-letter query (maximum 10)',function(t){
+    var actualDE = JSON.parse(auto.autotranslate( '/word=air&lang=de' )).results[0][0];
+    var expectedDE = 'air';
+    t.deepEqual(actualDE, expectedDE,'query words for input "air"');
 
-tape('autocomplete returns an array with the first results of a 4-letter query (maximum 10)',function(t){
-    var actual = auto.autotranslate( 'airp' );
-    var expected = ['airpark', 'airphobia', 'airplane', 'airplanist', 'airport', 'airproof'];
-    t.deepEqual(actual, expected,'query words for input "airp"');
+    var actualES = JSON.parse(auto.autotranslate( '/word=air&lang=es' )).results[0][0];
+    var expectedES = 'air';
+    t.deepEqual(actualES, expectedES,'query words for input "air"');
+
+    var actualFR = JSON.parse(auto.autotranslate( '/word=air&lang=fr' )).results[0][0];
+    var expectedFR = 'air';
+    t.deepEqual(actualFR, expectedFR,'query words for input "air"');
     t.end();
 });
 
-// tape('returned array should include only words that start with the input', function(t){
-//     var actual = auto.autocomplete( 'bana' );
-//     var expected = ['bana', 'banaba', 'banago', 'banak', 'banakite', 'banal', 'banality', 'banally', 'banana', 'bananaland'];
-//     t.deepEqual(actual, expected, '"bana" input excludes word "arabana"');
-//     t.end();
-// });
+tape('DE: returned array should include only words that start with the input', function(t){
+    var actual =[];
+    var result = JSON.parse(auto.autotranslate( '/word=bana&lang=de' ));
+    for(var i=0;i<10;i++){
+        actual.push(result.results[i][0]);
+    }
+    var expected = [ 'banal', 'banalities', 'banality', 'banalization', 'banally', 'banana-shaped', 'banana', 'bananaphone', 'bananas', 'Banat'];
+    t.deepEqual(actual, expected, '"bana" input excludes word "arabana"');
+    t.end();
+});
 
-// tape('returned array should be case-insensitive', function(t){
-//     var actual = auto.autocomplete( 'gran' );
-//     var expected = ['granada', 'granadilla', 'granadillo', 'granadine', 'granage', 'granary', 'granate', 'granatum', 'granch', 'grand'];
-//     t.deepEqual(actual, expected, '"gran" input returns granadine (Granadine in the txt file). ');
-//     t.end();
-// });
+tape('ES: returned array should include only words that start with the input', function(t){
+    var actual =[];
+    var result = JSON.parse(auto.autotranslate( '/word=bac&lang=es' ));
+    for(var i=0;i<10;i++){
+        actual.push(result.results[i][0]);
+    }
+    var expected = [ 'backbone ', 'backbone ', 'back', 'backpack', 'backstage', 'backstreet abortion', 'backstroke ', 'back then', 'back tooth', 'backwards' ];
+    t.deepEqual(actual, expected, '"bana" input excludes word "arabana"');
+    t.end();
+});
 
-// tape('user input matches words in wods.txt even if it includes capital letters', function(t){
-//     var actual = auto.autocomplete( 'Bump' );
-//     var expected = ['bump', 'bumpee', 'bumper', 'bumperette', 'bumpily', 'bumpiness', 'bumping', 'bumpingly', 'bumpkin', 'bumpkinet'];
-//     t.deepEqual(actual, expected, '"Bump" input still returns an array of ten words');
-//     t.end();
-// });
+tape('FR: returned array should include only words that start with the input', function(t){
+    var actual =[];
+    var result = JSON.parse(auto.autotranslate( '/word=bac&lang=fr' ));
+    for(var i=0;i<10;i++){
+        actual.push(result.results[i][0]);
+    }
+    var expected = [ 'bacchanal', 'bachelor', 'bachelor degree', 'Bachelor of Arts degree <B.A.>', 'bachelor party ', 'back-hand', 'back and forth', 'backbone', 'back brush', 'back' ];
+    t.deepEqual(actual, expected, '"bana" input excludes word "arabana"');
+    t.end();
+});
 
-// tape('time taken by the function should be less than 0.5s for ',function(t){
-//     var tStart  = new Date().getTime();
-//     var result = auto.autocomplete('unpa');
-//     var tEnd    = new Date().getTime();
-//     var timeTaken = tEnd - tStart;
-//     console.log(timeTaken);
-//     t.ok(timeTaken < 500, 'autocomplete worst case takes less than 1s');
-//     t.end();
-// });
+tape('DE: returned array should be case-sensitive', function(t){
+    var actual =[];
+    var result = JSON.parse(auto.autotranslate( '/word=london&lang=de' ));
+    for(var i=0;i<10;i++){
+        actual.push(result.results[i][0]);
+    }
+    var expected = [ 'London', 'London-born', 'Londoner', 'Londoners', 'Londonese', 'Londonese', 'Londonish', 'Londonish', 'Londonization', 'Londonized' ];
+    t.deepEqual(actual, expected, '"london" input returns London. ');
+    t.end();
+});
 
-tape("teardown", function(t){
-    server.server.close();
+tape('ES: returned array should be case-sensitive', function(t){
+    var actual =[];
+    var result = JSON.parse(auto.autotranslate( '/word=lon&lang=es' ));
+    for(var i=0;i<10;i++){
+        actual.push(result.results[i][0]);
+    }
+    var expected = [ 'London', 'loneliness', 'lonely', 'long-grain rice', 'long-life', 'long-lived', 'long-tailed mole', 'long-tailed', 'longevity', 'longitude' ];
+    t.deepEqual(actual, expected, '"lon" input returns London ');
+    t.end();
+});
+
+tape('FR: returned array should be case-sensitive', function(t){
+    var actual =[];
+    var result = JSON.parse(auto.autotranslate( '/word=lon&lang=fr' ));
+    for(var i=0;i<10;i++){
+        actual.push(result.results[i][0]);
+    }
+    var expected = [ 'Londoner', 'Londoner ', 'London', 'lonely', 'lonely ', 'lonely ', 'long-crested eagle', 'long-distance call service', 'long-grain ', 'long-haired spider monkey' ];
+    t.deepEqual(actual, expected, '"lon" input returns Londoner ');
+    t.end();
+});
+
+tape('DE: user input matches words in wordsDE.txt even if it includes capital letters', function(t){
+    var actual = [];
+    var result = JSON.parse(auto.autotranslate( '/word=BUMP&lang=de' ));
+    for(var i=0;i<10;i++){
+        actual.push(result.results[i][0]);
+    }
+    var expected = [ 'bump', 'bump', 'bump', 'bumped', 'bumper', 'bumpier', 'bumpily', 'bumpiness', 'bumping', 'bumpkinish' ];
+    t.deepEqual(actual, expected, '"Bump" input still returns an array of ten words');
+    t.end();
+});
+
+tape('ES: user input matches words in wordsES.txt even if it includes capital letters', function(t){
+    var actual = [];
+    var result = JSON.parse(auto.autotranslate( '/word=BE&lang=es' ));
+    for(var i=0;i<10;i++){
+        actual.push(result.results[i][0]);
+    }
+    var expected = [ 'beach', 'beak', 'beam', 'beam ', 'bean', 'beans', 'bean sprout', 'bearable', 'bear cub', 'beard' ];
+    t.deepEqual(actual, expected, '"Bump" input still returns an array of ten words');
+    t.end();
+});
+
+tape('FR: user input matches words in wordsFR.txt even if it includes capital letters', function(t){
+    var actual = [];
+    var result = JSON.parse(auto.autotranslate( '/word=BE&lang=fr' ));
+    for(var i=0;i<10;i++){
+        actual.push(result.results[i][0]);
+    }
+    var expected = [ 'Be ...', 'beachball', 'beach', 'beadle', 'beak', 'beaming ', 'beam of light', 'beam ', 'beam ', 'bean goose' ];
+    t.deepEqual(actual, expected, '"Bump" input still returns an array of ten words');
+    t.end();
+});
+
+tape('time taken by the function should be less than 1s for ',function(t){
+    var tStart  = new Date().getTime();
+    var result = auto.autotranslate('/word=unpa&lang=de');
+    var tEnd    = new Date().getTime();
+    var timeTaken = tEnd - tStart;
+    console.log(timeTaken);
+    t.ok(timeTaken < 1000, 'autocomplete worst case takes less than 1s');
     t.end();
 });
