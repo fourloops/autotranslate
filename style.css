@@ -5,9 +5,9 @@
 .boxes{
     width: 40vw;
     height: 90vh;
-    float: left;
     margin: auto;
     text-align: center;
+    z-index: 2;
 }
 
 .foreign {
@@ -20,18 +20,64 @@
 	margin-left: 5%;
 }
 
-input{
-	margin: 0;
+.langButtons {
+	display: block;
+	margin: 0 auto;
+	z-index: 1;
+	float: left;
+	width: 7vw;
+	height: 40vh;
 	margin-top: 10vh;
-	width: 40%;
+	margin-left: 1.5vh;
+}
+
+button {
+	width: 100%;
+	height: 20%;
+	margin-top: 2em;
+}
+
+button:active {
+	background-color: lightblue;
+}
+
+button:focus {
+	outline: none;
+}
+
+.currentLanguage {
+	background-color: blue;
+	color: white;
+}
+
+input, .language {
+	display: block;
+	margin: 0 auto;
+	margin-top: 15vh;
+	width: 60%;
 	height: 10%;
 	font-size: 2em;
 	background-color: lightblue;
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    border: 2px solid #eee;
+    box-sizing: border-box;
+    padding-left: 1vw;
+}
+
+input:focus {
+	outline: none;
+}
+
+.language {
+	font-family: sans-serif;
+	color: #A9A9A9;
+	padding-top: 1.5vh;
 }
 
 ul {
 	list-style-type: none;
-	width: 40%;
+	width: 60%;
 	display: block;
 	margin: 0 auto;
 	text-align: left;
@@ -43,10 +89,11 @@ ul {
 li {
 	background-color: gray;
 	height: 5vh;
-	width: 16vw;
+	width: 24vw;
 	padding-left: 6%;
 	box-sizing: border-box;
 	border: 1px solid lightgray;
+	overflow: hidden;
 }
 
 li:hover {

@@ -7,10 +7,18 @@
     </head>
     <body>
         <div class="english boxes">
-            <input id='myInput' type="text" name="name">
-            <ul id='results'></ul>
+            <input id='myInput' type="text" name="name" placeholder="Enter Word Here">
+            <ul id='suggestions'></ul>
         </div>
-        <div class="foreign boxes"><input type="text" name="name"></div>
+        <div class="langButtons">
+            <button id="es" class="currentLanguage">ES</button>
+            <button id="fr">FR</button>
+            <button id="de">DE</button>
+        </div>
+        <div class="foreign boxes">
+            <p class="language">Translations:</p>
+            <ul id='translations'></ul>
+        </div>
         <script type="text/javascript" src="./jasmine/src/script.js"></script>
     </body>
 </html>
