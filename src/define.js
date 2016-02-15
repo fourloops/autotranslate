@@ -20,15 +20,6 @@ function definitionFilter( apiResp ) {
     return JSON.stringify({text : firstEntry.text, partOfSpeech : firstEntry.partOfSpeech});
 }
 
-// function definitionFilter( term ) {
-//     return definitionGetter( term, function( respText ){
-//         var firstEntry = JSON.parse(respText)[0];
-//         console.log({text : firstEntry.text, partOfSpeech : firstEntry.partOfSpeech});
-//         return {text : firstEntry.text, partOfSpeech : firstEntry.partOfSpeech};
-//     });
-//
-// }
-
 module.exports = {
     definitionGetter: definitionGetter,
     definitionFilter: definitionFilter
