@@ -17,7 +17,7 @@ function definitionGetter( word, callback ){
 
 function definitionFilter( apiResp ) {
     var firstEntry = JSON.parse( apiResp )[0]
-    return JSON.stringify({text : firstEntry.text, partOfSpeech : firstEntry.partOfSpeech});
+    return JSON.stringify( {definition : firstEntry.text, partOfSpeech : firstEntry.partOfSpeech} );
 }
 
 module.exports = {

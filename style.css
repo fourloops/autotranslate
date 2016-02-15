@@ -1,6 +1,6 @@
-* {
+/** {
 	border: 1px solid transparent;
-}
+}*/
 
 html, body {
     height: 100%;
@@ -122,6 +122,9 @@ li:hover {
     width: 25vw;
     margin-left: 12.5%;
     margin-top: 13.3%;
+	font-size: 20vw;
+	color:red;
+	font-weight: bold;
 }
 .visible {
     opacity: 1;
