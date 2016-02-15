@@ -55,14 +55,14 @@ tape("Server responds with a maximum array of 10 words from a minimum 4-characte
     });
 });
 
-tape("Server responds to 'translation' request with correct translated word", function(t){
-    shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000/def=hello&lang=de'}, function(res){
-        var actual = res.payload;
-        var expected = 'Hallo';
-        t.equal(actual, expected, "server returns expected German word");
-        t.end();
-    });
-});
+// tape("Server responds to 'translation' request with correct translated word", function(t){
+//     shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000/def=hello&lang=de'}, function(res){
+//         var actual = res.payload;
+//         var expected = 'Hallo';
+//         t.equal(actual, expected, "server returns expected German word");
+//         t.end();
+//     });
+// });
 
 // -------- AUTOCOMPLETE TESTS ----------- //
 
@@ -132,6 +132,20 @@ tape('time taken by the function should be less than 0.5s for ',function(t){
     t.ok(timeTaken < 500, 'autocomplete worst case takes less than 1s');
     t.end();
 });
+
+
+// -------- WORDNIK DEFINITION TESTS ----------- //
+
+tape('server should respond to the "def=" url', function(t){
+    shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000/def=mobile'}, function(res) {
+        t.equal(res.statusCode, 200, 'server provides a successful response');
+        t.equal(res.payload, '{"text":"Capable of moving or of being moved readily from place to place:  a mobile organism; a mobile missile system. ","partOfSpeech":"adjective"}', "it's a perfect match!");
+        t.end();
+    });
+});
+
+
+// -------- EXIT SERVER ----------- //
 
 tape("teardown", function(t){
     server.server.close();
