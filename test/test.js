@@ -136,14 +136,26 @@ tape('time taken by the function should be less than 0.5s for ',function(t){
 
 // -------- WORDNIK DEFINITION TESTS ----------- //
 
-tape('server should respond to the "def=" url', function(t){
+tape('server should respond to the "def=" url and provide a stringified object with corresponding text and partOfSpeech upon calling the definitionGetter function', function(t){
     shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000/def=mobile'}, function(res) {
+        var defResp = res.payload.split('\n')[0];
         t.equal(res.statusCode, 200, 'server provides a successful response');
-        t.equal(res.payload, '{"text":"Capable of moving or of being moved readily from place to place:  a mobile organism; a mobile missile system. ","partOfSpeech":"adjective"}', "it's a perfect match!");
+        t.equal(defResp, '{"text":"Capable of moving or of being moved readily from place to place:  a mobile organism; a mobile missile system. ","partOfSpeech":"adjective"}', "it's a perfect match!");
         t.end();
     });
 });
 
+// -------- PIXABAY URL-GETTER TESTS ----------- //
+tape('server should respond to the "def="url and provide a string-type url upon calling the pixabayGetter function. The respons',function(t){
+    shot.inject(server.handler, {method:"GET", url: 'http://localhost:4000/def=stunned'}, function(res){
+        var imgURLResp = res.payload.split('\n')[1];
+        t.equal(res.statusCode, 200,'server provides a successful response');
+        t.equal(typeof imgURLResp, "string", "provides a string as a response");
+        t.ok( actual.match( /.jpg$/ ) , "aren't you stunned this works?");
+        t.ok( actual.indexOf( 'https://pixabay.com/get/' ) > -1, 'result gets image URL using pixabay API');
+        t.end();
+    });
+});
 
 // -------- EXIT SERVER ----------- //
 
