@@ -1,44 +1,20 @@
 var fs = require("fs");
 
-var words = fs.readFileSync("words.txt", "utf8").split("\n");
+// Read wordsDE file and splits it into 2D array, with each definition an
+// array containing English word, German word, and type of word.
+var wordsDE = fs.readFileSync("wordsDE.txt", "utf8").split("\n")
+                                                    .map(x => x.split('\t'));
 
-function autocomplete( url ){
-    var userInput = url.replace("/word=","");
-    var results = [];
-    var check = '^' + userInput.toLowerCase();
-    var re = new RegExp( check );
-    for( var i=0, x=words.length-1; i < x ; i++ ){
-        var lowerWord = words[i].toLowerCase();
-        if( lowerWord.match( re ) ){
-            results.push( lowerWord );
-            if( results.length >= 10 ){
-                break;
-            }
-        }
-    }
-    return results;
-}
+var wordsES = fs.readFileSync("wordsES.txt", "utf8").split("\n")
+                                                    .map(x => x.split('\t'));
+
+var wordsFR = fs.readFileSync("wordsFR.txt", "utf8").split("\n")
+                                                    .map(x => x.split('\t'));
 
 
 // ------ deAuto takes url in the format '/wordAndTrans=someWord' , and -------
 // ------ returns JSON object containing a 2D array of suggestions ----
 
-// Read wordsDE file and splits it into 2D array, with each definition an
-// array containing English word, German word, and type of word.
-var wordsDE = fs.readFileSync("wordsDE.txt", "utf8").split("\n")
-                                                    .map(x => x.replace(/^to\s/, ''))
-                                                    .map(x => x.split('\t'))
-                                                    .filter(x => x[0].split(' ').length < 4);
-
-var wordsES = fs.readFileSync("wordsES.txt", "utf8").split("\n")
-                                                    .map(x => x.replace(/^to\s/, ''))
-                                                    .map(x => x.split('\t'));
-
-var wordsFR = fs.readFileSync("wordsFR.txt", "utf8").split("\n")
-                                                    .map(x => x.replace(/^to\s/, ''))
-                                                    .map(x => x.split('\t'));
-
-//'word=point&lang=de'
 function autotranslate( url ){
     var lang = url.split('&lang=')[1];
     var word = url.split('&lang=')[0].replace('/wordAndTrans=', '').toLowerCase();
@@ -85,7 +61,8 @@ function autotranslate( url ){
 }
 
 module.exports = {
-    words        :   words,
-    autocomplete :   autocomplete,
-    autotranslate :   autotranslate
+    wordsDE         :   wordsDE,
+    wordsFR         :   wordsFR,
+    wordsES         :   wordsES,
+    autotranslate   :   autotranslate
 };

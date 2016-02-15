@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "tape ./test/*",
-    "coverage": "istanbul cover ./test/*"
+    "coverage": "istanbul cover tape ./test/*"
   },
   "repository": {
     "type": "git",
