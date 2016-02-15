@@ -3,6 +3,7 @@ var http = require("http");
 var yandex = require('./yandex.js');
 var fs = require("fs");
 var autoComp = require("./autocomplete.js");
+var define	= require('./define.js');
 
 var port = process.env.PORT;
 
@@ -22,10 +23,15 @@ function handler(req, res) {
 		res.writeHead(200, {"Content-type": "text/html"});
 		res.end(responseJSON);
 	} else if(url.indexOf('def=') > -1){
-		yandex.translate(url, function(translation){
-	        res.writeHead(200, {"Content-type": "text/html"});
-	        res.end(translation);
-	    });
+		var term = url.split('def=')[1].split('&')[0];
+		define.definitionGetter( term, function( apiResp ){
+			res.writeHead( 200, { "Content-type": "text/html" } );
+			res.end( define.definitionFilter( apiResp ) );
+		});
+		// yandex.translate(url, function(translation){
+	    //     res.writeHead(200, {"Content-type": "text/html"});
+	    //     res.end(translation);
+	    // });
 	} else {
 		fs.readFile(__dirname.replace("/src", "") + url, function(error, file){
   			if (error) {
