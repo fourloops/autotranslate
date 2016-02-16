@@ -8,7 +8,8 @@ function pixabayGetter ( tag, callback ) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.status === 200 && xhr.readyState === 4) {
-            callback(xhr.responseText);
+            var randomImage = imgURLGetter(xhr.responseText);
+            callback(randomImage);
         }
     };
     xhr.open('GET', url);

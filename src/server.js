@@ -25,16 +25,11 @@ function handler(req, res) {
 
 		var counter = 0;
 		var def = '';
-		define.definitionGetter( term, function( apiResp ){
-			def += define.definitionFilter( apiResp );
-			counter++;
-			if (counter === 2) { res.end(def + '\n' + img); }
-		});
 		var img = '';
-		pictures.pixabayGetter( term, function ( imgApiResp ){
-			img += pictures.imgURLGetter( imgApiResp );
-			counter++;
-			if (counter === 2) { res.end(def + '\n' + img); }
+		define.definitionGetter( term, function( filteredResponse ){
+			pictures.pixabayGetter( term, function ( randomImage ){
+				res.end(filteredResponse + '\n' + randomImage);
+			});
 		});
 
 	} else {
