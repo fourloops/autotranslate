@@ -1,6 +1,6 @@
-/** {
+* {
 	border: 1px solid transparent;
-}*/
+}
 
 html, body {
     height: 100%;
@@ -9,7 +9,7 @@ html, body {
 }
 
 body {
-    background-image: url(http://greatphotojournalism.com/thumbs2/1440x960/fotos/store/res_15479.jpg);
+    background-image: url(./assets/esBackground.jpg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     webkit-transition: background-image 1.5s;
@@ -122,9 +122,9 @@ li:hover {
     width: 25vw;
     margin-left: 12.5%;
     margin-top: 13.3%;
-	font-size: 20vw;
+	font-size: 1.5em;
 	color:red;
-	font-weight: bold;
+	border: 1px solid red;
 }
 .visible {
     opacity: 1;

@@ -1,6 +1,5 @@
 require('env2')('./config.env');
 var http = require("http");
-var yandex = require('./yandex.js');
 var fs = require("fs");
 var autoComp = require("./autocomplete.js");
 var define	= require('./define.js');
@@ -28,13 +27,13 @@ function handler(req, res) {
 		var def = '';
 		define.definitionGetter( term, function( apiResp ){
 			def += define.definitionFilter( apiResp );
-			counter++
+			counter++;
 			if (counter === 2) { res.end(def + '\n' + img); }
 		});
 		var img = '';
 		pictures.pixabayGetter( term, function ( imgApiResp ){
 			img += pictures.imgURLGetter( imgApiResp );
-			counter++
+			counter++;
 			if (counter === 2) { res.end(def + '\n' + img); }
 		});
 

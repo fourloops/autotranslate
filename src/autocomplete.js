@@ -6,9 +6,11 @@ var wordsDE = fs.readFileSync("wordsDE.txt", "utf8").split("\n")
                                                     .map(x => x.split('\t'));
 
 var wordsES = fs.readFileSync("wordsES.txt", "utf8").split("\n")
+                                                    .map(x => x.replace(/^to\s/, '')) 
                                                     .map(x => x.split('\t'));
 
 var wordsFR = fs.readFileSync("wordsFR.txt", "utf8").split("\n")
+                                                    .map(x => x.replace(/^to\s/, ''))
                                                     .map(x => x.split('\t'));
 
 
