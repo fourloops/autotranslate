@@ -1,5 +1,5 @@
 require('env2')('./config.env');
-var XMLHttpRequest = require('xmlhttpRequest').XMLHttpRequest;
+var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 //call to Pixabay API
 function pixabayGetter ( tag, callback ) {
