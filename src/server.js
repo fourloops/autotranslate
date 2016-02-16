@@ -1,6 +1,5 @@
 require('env2')('./config.env');
 var http = require("http");
-var yandex = require('./yandex.js');
 var fs = require("fs");
 var autoComp = require("./autocomplete.js");
 var define	= require('./define.js');
