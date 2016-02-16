@@ -31,6 +31,7 @@ document.getElementById("myInput").addEventListener('keyup', function(k){
 		document.getElementsByClassName("definition")[0].classList.remove("visible");
 		document.getElementById('translations').innerHTML='';
 		document.getElementById('suggestions').innerHTML='';
+		document.getElementById('definition').innerHTML='';
 		checkLength();
 	}
 	// if "ENTER"
@@ -49,18 +50,14 @@ document.getElementById("myInput").addEventListener('keyup', function(k){
 				// the first element of the parsed response is the definition from wordnik api
 				var defObj = JSON.parse( serverResponse[0] );
 
-				// create two <p> html elements which will include the definition and the partOfSpeech
+				// create a <p> tag with the definition of the selected word and its word type
 				var defP = document.createElement('p');
 				defP.id = "definition-paragraph";
-				defP.innerHTML = defObj.definition;
-				var defPOS = document.createElement('p');
-				defPOS.innerHTML = defObj.partOfSpeech;
+				defP.innerHTML = defObj.definition + "<br><br>"+ defObj.partOfSpeech;
 				document.getElementById('suggestions').innerHTML = "";
-				document.getElementById('translations').innerHTML = "";
+				// document.getElementById('translations').innerHTML = "";
 				// append the two <p> html elements to the definitionDiv
 				definitionDiv.appendChild(defP);
-				definitionDiv.appendChild(defPOS);
-
 				// the second element of the parsed response is the url of the image from pixabay
 				var imgURL = http.responseText.split("\n")[1];
 				// the body's backgroundImage will change to the image fetched from pixabay

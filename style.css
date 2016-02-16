@@ -9,7 +9,14 @@ html, body {
 }
 
 body {
+<<<<<<< HEAD
     background-image: url(./assets/esBackground.jpg);
+||||||| merged common ancestors
+    background-image: url(http://greatphotojournalism.com/thumbs2/1440x960/fotos/store/res_15479.jpg);
+=======
+    background-color: black;
+    background-image: url(http://greatphotojournalism.com/thumbs2/1440x960/fotos/store/res_15479.jpg);
+>>>>>>> 8c8cdbd0a92fa0aa78f94dd5aa01f3ec2908c45c
     background-repeat: no-repeat;
     background-size: 100% 100%;
     webkit-transition: background-image 1.5s;
@@ -78,6 +85,9 @@ input, .language {
     box-sizing: border-box;
     padding-left: 1vw;
 }
+input{
+    autocomplete: search;
+}
 
 input:focus {
 	outline: none;
@@ -100,19 +110,6 @@ ul {
 	font-size: 1.5em;
 }
 
-li {
-	background-color: gray;
-	height: 5vh;
-	width: 24vw;
-	padding-left: 6%;
-	box-sizing: border-box;
-	border: 1px solid lightgray;
-	overflow: hidden;
-}
-
-li:hover {
-	background-color:lightblue;
-}
 .focus {
     background-color:lightblue;
 }
@@ -123,9 +120,29 @@ li:hover {
     margin-left: 12.5%;
     margin-top: 13.3%;
 	font-size: 1.5em;
-	color:red;
 	border: 1px solid red;
+	font-size: 1.5em;
+    background-color: transparent;
+}
+.definition p{
+    position: absolute;
+    width: 25vw;
 }
 .visible {
-    opacity: 1;
+    background-color: white;
+    opacity: 0.7;
+    webkit-transition: 1.5s linear;
+    transition: 1.5s linear;
+}
+li {
+    background-color: gray;
+    height: 5vh;
+    width: 24vw;
+    padding-left: 6%;
+    box-sizing: border-box;
+    border: 1px solid lightgray;
+    overflow: hidden;
+}
+li:hover {
+    background-color:lightblue;
 }
