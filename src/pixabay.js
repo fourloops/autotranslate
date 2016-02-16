@@ -1,9 +1,9 @@
 require('env2')('./config.env');
-var XMLHttpRequest = require('xmlhttpRequest').XMLHttpRequest;
+var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 //call to Pixabay API
 function pixabayGetter ( tag, callback ) {
-    var key = process.env.PIXABAY || prompt('please enter a valid key');
+    var key = process.env.PIXABAY;
     var url = 'https://pixabay.com/api/?key=' + key + '&q=' + tag + '&image_type=photo';
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
