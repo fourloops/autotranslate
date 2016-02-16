@@ -3,32 +3,27 @@
 var currentLang = 'es';
 var count = -1;
 
+document.getElementById('de').addEventListener('click', function(e){
+	toggleClasses('de');
+});
+
+document.getElementById('fr').addEventListener('click', function(e){
+	toggleClasses('fr');
+});
+
+document.getElementById('es').addEventListener('click', function(e){
+	toggleClasses('es');
+});
+
 function toggleClasses(lang){
 	currentLang = lang;
 	document.getElementById('fr').classList.remove('currentLanguage');
 	document.getElementById('es').classList.remove('currentLanguage');
 	document.getElementById('de').classList.remove('currentLanguage');
 	document.getElementById(lang).classList.add('currentLanguage');
+	document.body.style.backgroundImage = 'url(./assets/' + lang + 'Background.jpg)';
+	checkLength();
 }
-
-document.getElementById('de').addEventListener('click', function(e){
-	checkLength();
-	toggleClasses('de');
-	document.body.style.backgroundImage = 'url(https://upload.wikimedia.org/wikipedia/commons/a/a6/Brandenburger_Tor_abends.jpg)';
-});
-
-document.getElementById('fr').addEventListener('click', function(e){
-	checkLength();
-	toggleClasses('fr');
-	document.body.style.backgroundImage = 'url(http://www.destination360.com/contents/pictures/paris/notre-dame-paris-hours.jpg)';
-
-});
-
-document.getElementById('es').addEventListener('click', function(e){
-	checkLength();
-	toggleClasses('es');
-	document.body.style.backgroundImage = 'url(http://greatphotojournalism.com/thumbs2/1440x960/fotos/store/res_15479.jpg)';
-});
 
 document.getElementById("myInput").addEventListener('keyup', function(k){
 	if(k.keyCode>45 && k.keyCode<91 || k.keyCode === 8){
@@ -38,15 +33,38 @@ document.getElementById("myInput").addEventListener('keyup', function(k){
 		document.getElementById('suggestions').innerHTML='';
 		checkLength();
 	}
+	// if "ENTER"
 	else if(k.keyCode===13){
 		count = -1;
-		document.getElementsByClassName("definition")[0].classList.add("visible");
+		var definitionDiv = document.getElementById("definition");
+		definitionDiv.innerHTML = "";
+		var bodyDiv		  = document.body;
+		definitionDiv.classList.add("visible");
 		var defRequest = document.getElementById("myInput").value;
 		var http = new XMLHttpRequest();
 		http.onreadystatechange = function(){
 			if(http.readyState == 4 && http.status == 200){
-				var defObj = http.responseText.split("/n")[0];
-				var imgURL = http.responseText.split("/n")[1];
+				// parse the response from the server ( a stringified object and a url string separated by a \n )
+				var serverResponse = http.responseText.split("\n");
+				// the first element of the parsed response is the definition from wordnik api
+				var defObj = JSON.parse( serverResponse[0] );
+
+				// create two <p> html elements which will include the definition and the partOfSpeech
+				var defP = document.createElement('p');
+				defP.id = "definition-paragraph";
+				defP.innerHTML = defObj.definition;
+				var defPOS = document.createElement('p');
+				defPOS.innerHTML = defObj.partOfSpeech;
+				document.getElementById('suggestions').innerHTML = "";
+				document.getElementById('translations').innerHTML = "";
+				// append the two <p> html elements to the definitionDiv
+				definitionDiv.appendChild(defP);
+				definitionDiv.appendChild(defPOS);
+
+				// the second element of the parsed response is the url of the image from pixabay
+				var imgURL = http.responseText.split("\n")[1];
+				// the body's backgroundImage will change to the image fetched from pixabay
+				bodyDiv.style.backgroundImage = "url(" + imgURL + ")";
 			}
 		};
 		http.open("GET", 'def=' + defRequest);
