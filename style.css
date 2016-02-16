@@ -9,14 +9,8 @@ html, body {
 }
 
 body {
-<<<<<<< HEAD
     background-image: url(./assets/esBackground.jpg);
-||||||| merged common ancestors
-    background-image: url(http://greatphotojournalism.com/thumbs2/1440x960/fotos/store/res_15479.jpg);
-=======
     background-color: black;
-    background-image: url(http://greatphotojournalism.com/thumbs2/1440x960/fotos/store/res_15479.jpg);
->>>>>>> 8c8cdbd0a92fa0aa78f94dd5aa01f3ec2908c45c
     background-repeat: no-repeat;
     background-size: 100% 100%;
     webkit-transition: background-image 1.5s;
@@ -120,7 +114,6 @@ ul {
     margin-left: 12.5%;
     margin-top: 13.3%;
 	font-size: 1.5em;
-	border: 1px solid red;
 	font-size: 1.5em;
     background-color: transparent;
 }
@@ -145,4 +138,5 @@ li {
 }
 li:hover {
     background-color:lightblue;
+    cursor: pointer;
 }

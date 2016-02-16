@@ -25,7 +25,48 @@ function toggleClasses(lang){
 	checkLength();
 }
 
+function addClickEvents(){
+	for(var i=0;i<document.getElementsByClassName("word").length;i++){
+		document.getElementsByClassName("word")[i].addEventListener('click', function(e){
+			var searchText = this.innerHTML;
+			document.getElementById("myInput").value=searchText;
+			document.getElementById("myInput").focus();
+			getDefinition(searchText);
+		});
+	}
+}
+
+function getDefinition(word){
+	var http = new XMLHttpRequest();
+	http.onreadystatechange = function(){
+		if(http.readyState == 4 && http.status == 200){
+			var definitionDiv = document.getElementById("definition");
+			definitionDiv.innerHTML = "";
+			definitionDiv.classList.add("visible");
+			// parse the response from the server ( a stringified object and a url string separated by a \n )
+			var serverResponse = http.responseText.split("\n");
+			// the first element of the parsed response is the definition from wordnik api
+			var defObj = JSON.parse( serverResponse[0] );
+			// create a <p> tag with the definition of the selected word and its word type
+			var defP = document.createElement('p');
+			defP.id = "definition-paragraph";
+			defP.innerHTML = defObj.definition + "<br><br>"+ defObj.partOfSpeech;
+			document.getElementById('suggestions').innerHTML = "";
+			// document.getElementById('translations').innerHTML = "";
+			// append the two <p> html elements to the definitionDiv
+			definitionDiv.appendChild(defP);
+			// the second element of the parsed response is the url of the image from pixabay
+			var imgURL = http.responseText.split("\n")[1];
+			// the body's backgroundImage will change to the image fetched from pixabay
+			document.body.style.backgroundImage = "url(" + imgURL + ")";
+		}
+	};
+	http.open("GET", 'def=' + word);
+	http.send();
+}
+
 document.getElementById("myInput").addEventListener('keyup', function(k){
+	// if any letter key or backspace, clear old suggestions/translations and get new ones
 	if(k.keyCode>45 && k.keyCode<91 || k.keyCode === 8){
 		count = -1;
 		document.getElementsByClassName("definition")[0].classList.remove("visible");
@@ -37,35 +78,8 @@ document.getElementById("myInput").addEventListener('keyup', function(k){
 	// if "ENTER"
 	else if(k.keyCode===13){
 		count = -1;
-		var definitionDiv = document.getElementById("definition");
-		definitionDiv.innerHTML = "";
-		var bodyDiv		  = document.body;
-		definitionDiv.classList.add("visible");
 		var defRequest = document.getElementById("myInput").value;
-		var http = new XMLHttpRequest();
-		http.onreadystatechange = function(){
-			if(http.readyState == 4 && http.status == 200){
-				// parse the response from the server ( a stringified object and a url string separated by a \n )
-				var serverResponse = http.responseText.split("\n");
-				// the first element of the parsed response is the definition from wordnik api
-				var defObj = JSON.parse( serverResponse[0] );
-
-				// create a <p> tag with the definition of the selected word and its word type
-				var defP = document.createElement('p');
-				defP.id = "definition-paragraph";
-				defP.innerHTML = defObj.definition + "<br><br>"+ defObj.partOfSpeech;
-				document.getElementById('suggestions').innerHTML = "";
-				// document.getElementById('translations').innerHTML = "";
-				// append the two <p> html elements to the definitionDiv
-				definitionDiv.appendChild(defP);
-				// the second element of the parsed response is the url of the image from pixabay
-				var imgURL = http.responseText.split("\n")[1];
-				// the body's backgroundImage will change to the image fetched from pixabay
-				bodyDiv.style.backgroundImage = "url(" + imgURL + ")";
-			}
-		};
-		http.open("GET", 'def=' + defRequest);
-		http.send();
+		getDefinition(defRequest);
 	}
 });
 
@@ -73,7 +87,7 @@ window.addEventListener('keydown', function(k){
 	if(k.keyCode===38){
 		if(count>0){
 			count--;
-			for(i=0;i<document.getElementsByClassName("word").length;i++){
+			for(var i=0;i<document.getElementsByClassName("word").length;i++){
 				document.getElementsByClassName("word")[i].classList.remove("focus");
 				document.getElementsByClassName("translated")[i].classList.remove("focus");
 			}
@@ -85,7 +99,7 @@ window.addEventListener('keydown', function(k){
 	else if(k.keyCode===40){
 		if(count < document.getElementsByClassName("word").length && count < 9){
 			count++;
-			for(i=0;i<document.getElementsByClassName("word").length;i++){
+			for(var i=0;i<document.getElementsByClassName("word").length;i++){
 				document.getElementsByClassName("word")[i].classList.remove("focus");
 				document.getElementsByClassName("translated")[i].classList.remove("focus");
 			}
@@ -136,6 +150,7 @@ function listifyTranslations(array){
 		document.getElementById('suggestions').appendChild(nodeSuggestions);
 		document.getElementById('translations').appendChild(nodeTranslations);
 	});
+	addClickEvents();
 }
 
 })();
