@@ -6,17 +6,17 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div class="langButtons">
+            <div class="inline-btn left"><button id="es" class="currentLanguage">ES</button></div>
+            <div class="inline-btn middle"><button id="fr">FR</button></div>
+            <div class="inline-btn right"><button id="de">DE</button></div>
+        </div>
         <div class="english boxes">
             <input id='myInput' type="text" name="name" placeholder="Enter Word Here" autocomplete="false">
             <ul id='suggestions'></ul>
             <div id="definition" class="definition"></div>
         </div>
-        <div class="langButtons">
-            <button id="es" class="currentLanguage">ES</button>
-            <button id="fr">FR</button>
-            <button id="de">DE</button>
-        </div>
-        <div id="foreignBoxes" class="foreign boxes">
+        <div id="foreignBoxes" class="foreign boxes" placeholder="Translations:">
             <p id="result" class="language">Translations:</p>
             <ul id='translations'></ul>
             <div id="foreignMessage" class="definition"></div>

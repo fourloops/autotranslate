@@ -18,7 +18,7 @@ function pixabayGetter ( tag, callback ) {
 
 //function that provides default image in case of an error
 function errorImage() {
-    return "../assets/not-found-fr.png";
+    return '{"es":"../assets/not-found-es.png","fr":"../assets/not-found-fr.png","de":"../assets/not-found-de.png"}';
 }
 
 //function that randomly selects image by matching tags to the user input

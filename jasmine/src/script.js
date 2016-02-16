@@ -45,6 +45,7 @@ function getDefinition(word){
 			definitionDiv.classList.add("visible");
 			// parse the response from the server ( a stringified object and a url string separated by a \n )
 			var serverResponse = http.responseText.split("\n");
+			console.log(serverResponse);
 			// the first element of the parsed response is the definition from wordnik api
 			var defObj = JSON.parse( serverResponse[0] );
 			// create a <p> tag element with the definition of the selected word and its word type
@@ -58,7 +59,7 @@ function getDefinition(word){
 			// Another <p> tag element will be created in case the wordnik API has not found a definition for the entered word
 			if( defP.innerHTML.indexOf( 'FOUR ZERO FOUR' )> -1 ){
 			// if user input does not trigger a result from Wordnik API, provide the 404 message's translation alongside the English
-			var errTransDiv = document.getElementById('foreign404');
+				var errTransDiv = document.getElementById('foreign404');
 				if( !errTransDiv ){
 					errTransDiv = document.createElement('p');
 					errTransDiv.id 		= 'foreign404';
@@ -73,7 +74,10 @@ function getDefinition(word){
 			// append the two <p> html elements to the definitionDiv
 			definitionDiv.appendChild(defP);
 			// the second element of the parsed response is the url of the image from pixabay
-			var imgURL = serverResponse[1];
+			// the ternary operation checks if the img url is from a local file (../assets/). If so, the 404 format URL is returned (filtered by language)
+			// 																				 Otherwise the format is already a working url string.
+			var imgURL = serverResponse[1].indexOf('../assets/') > -1 ? JSON.parse( serverResponse[1] )[ currentLang ] : serverResponse[1];
+
 			// the body's backgroundImage will change to the image fetched from pixabay
 			document.body.style.backgroundImage = "url(" + imgURL + ")";
 		}
@@ -95,7 +99,6 @@ document.getElementById("myInput").addEventListener('keyup', function(k){
 	}
 	// if "ENTER"
 	else if(k.keyCode===13){
-		console.log(count);
 		count = -1;
 		var defRequest = document.getElementById("myInput").value;
 		getDefinition(defRequest);

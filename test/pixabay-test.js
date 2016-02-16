@@ -23,9 +23,8 @@ tape('imgURLGetter function should return a string with an webformatURL (at rand
 tape('imgURLGetter should return a standard 404 image URL if the picture has not been found on pixabay', function(t){
     func.pixabayGetter('xbrgltyvswq', function( res ){
         var actual = func.imgURLGetter( res );
-        t.ok( typeof actual, 'string', 'result is a string'  );
-        t.ok( actual.indexOf('.png') > -1, 'result ends with ".png" and so is an image url (not from pixabay)');
-        t.ok( actual.indexOf('assets/not-found') > -1, 'result gets image from assets folder');
+        var expected = '{"es":"../assets/not-found-es.png","fr":"../assets/not-found-fr.png","de":"../assets/not-found-de.png"}';
+        t.equal( actual, expected, 'results match'  );
         t.end();
     });
 });
