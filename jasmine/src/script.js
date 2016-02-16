@@ -47,16 +47,33 @@ function getDefinition(word){
 			var serverResponse = http.responseText.split("\n");
 			// the first element of the parsed response is the definition from wordnik api
 			var defObj = JSON.parse( serverResponse[0] );
-			// create a <p> tag with the definition of the selected word and its word type
+			// create a <p> tag element with the definition of the selected word and its word type
 			var defP = document.createElement('p');
 			defP.id = "definition-paragraph";
-			defP.innerHTML = defObj.definition + "<br><br>"+ defObj.partOfSpeech;
+			// the innerHTML will show the standard 404 message in english if the wordnik API does not return a result.
+			defP.innerHTML = ( defObj.definition || defObj.en[0] ) + "<br><br>" + ( defObj.partOfSpeech || defObj.en[1] ) ;
 			document.getElementById('suggestions').innerHTML = "";
-			// document.getElementById('translations').innerHTML = "";
+			document.getElementById('translations').innerHTML = "";
+
+			// Another <p> tag element will be created in case the wordnik API has not found a definition for the entered word
+			if( defP.innerHTML.indexOf( 'FOUR ZERO FOUR' )> -1 ){
+			// if user input does not trigger a result from Wordnik API, provide the 404 message's translation alongside the English
+			var errTransDiv = document.getElementById('foreign404');
+				if( !errTransDiv ){
+					errTransDiv = document.createElement('p');
+					errTransDiv.id 		= 'foreign404';
+					var foreignDiv = document.getElementById('foreignMessage');
+					foreignDiv.appendChild( errTransDiv );
+				}
+				errTransDiv.innerHTML = defObj[currentLang][0] + "<br><br>" + defObj[currentLang][1];
+				errTransDiv.className = 'definition visible';
+			}
+
+
 			// append the two <p> html elements to the definitionDiv
 			definitionDiv.appendChild(defP);
 			// the second element of the parsed response is the url of the image from pixabay
-			var imgURL = http.responseText.split("\n")[1];
+			var imgURL = serverResponse[1];
 			// the body's backgroundImage will change to the image fetched from pixabay
 			document.body.style.backgroundImage = "url(" + imgURL + ")";
 		}
@@ -66,17 +83,19 @@ function getDefinition(word){
 }
 
 document.getElementById("myInput").addEventListener('keyup', function(k){
-	// if any letter key or backspace, clear old suggestions/translations and get new ones
+	// if any letter key or backspace, clear old suggestions/translations (and foreignBoxes) and get new ones
 	if(k.keyCode>45 && k.keyCode<91 || k.keyCode === 8){
 		count = -1;
 		document.getElementsByClassName("definition")[0].classList.remove("visible");
 		document.getElementById('translations').innerHTML='';
+		document.getElementById('foreignMessage').innerHTML='';
 		document.getElementById('suggestions').innerHTML='';
 		document.getElementById('definition').innerHTML='';
 		checkLength();
 	}
 	// if "ENTER"
 	else if(k.keyCode===13){
+		console.log(count);
 		count = -1;
 		var defRequest = document.getElementById("myInput").value;
 		getDefinition(defRequest);
@@ -84,6 +103,7 @@ document.getElementById("myInput").addEventListener('keyup', function(k){
 });
 
 window.addEventListener('keydown', function(k){
+	// keyCode 38 is for pressing the arrow up key
 	if(k.keyCode===38){
 		if(count>0){
 			count--;
@@ -94,18 +114,21 @@ window.addEventListener('keydown', function(k){
 			document.getElementsByClassName("word")[count].classList.add("focus");
 			document.getElementsByClassName("translated")[count].classList.add("focus");
 			document.getElementById("myInput").value=document.getElementsByClassName("word")[count].innerHTML;
+			document.getElementById("result").innerHTML=document.getElementsByClassName("translated")[count].innerHTML;
 		}
 	}
+	// keyCode 40 is for pressing the arrow down key
 	else if(k.keyCode===40){
 		if(count < document.getElementsByClassName("word").length && count < 9){
 			count++;
-			for(var i=0;i<document.getElementsByClassName("word").length;i++){
-				document.getElementsByClassName("word")[i].classList.remove("focus");
-				document.getElementsByClassName("translated")[i].classList.remove("focus");
+			for(var j=0;j<document.getElementsByClassName("word").length;j++){
+				document.getElementsByClassName("word")[j].classList.remove("focus");
+				document.getElementsByClassName("translated")[j].classList.remove("focus");
 			}
 			document.getElementsByClassName("word")[count].classList.add("focus");
 			document.getElementsByClassName("translated")[count].classList.add("focus");
 			document.getElementById("myInput").value=document.getElementsByClassName("word")[count].innerHTML;
+			document.getElementById("result").innerHTML=document.getElementsByClassName("translated")[count].innerHTML;
 		}
 	}
 });
