@@ -9,7 +9,8 @@ function definitionGetter( word, callback ){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         if(xhr.status === 200 && xhr.readyState === 4 ){
-            callback( xhr.responseText );
+            var filteredResponse = definitionFilter(xhr.responseText);
+            callback( filteredResponse );
         }
     };
     xhr.open('GET',url);
