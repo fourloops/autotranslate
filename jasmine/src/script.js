@@ -3,16 +3,6 @@
 var currentLang = 'es';
 var count = -1;
 
-function toggleClasses(lang){
-	currentLang = lang;
-	document.getElementById('fr').classList.remove('currentLanguage');
-	document.getElementById('es').classList.remove('currentLanguage');
-	document.getElementById('de').classList.remove('currentLanguage');
-	document.getElementById(lang).classList.add('currentLanguage');
-	document.body.style.backgroundImage = 'url(./assets/' + lang + 'Background.jpg)';
-	checkLength();
-}
-
 document.getElementById('de').addEventListener('click', function(e){
 	toggleClasses('de');
 });
@@ -24,6 +14,16 @@ document.getElementById('fr').addEventListener('click', function(e){
 document.getElementById('es').addEventListener('click', function(e){
 	toggleClasses('es');
 });
+
+function toggleClasses(lang){
+	currentLang = lang;
+	document.getElementById('fr').classList.remove('currentLanguage');
+	document.getElementById('es').classList.remove('currentLanguage');
+	document.getElementById('de').classList.remove('currentLanguage');
+	document.getElementById(lang).classList.add('currentLanguage');
+	document.body.style.backgroundImage = 'url(./assets/' + lang + 'Background.jpg)';
+	checkLength();
+}
 
 document.getElementById("myInput").addEventListener('keyup', function(k){
 	if(k.keyCode>45 && k.keyCode<91 || k.keyCode === 8){
