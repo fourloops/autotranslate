@@ -27,13 +27,13 @@ function handler(req, res) {
 		var def = '';
 		define.definitionGetter( term, function( apiResp ){
 			def += define.definitionFilter( apiResp );
-			counter++
+			counter++;
 			if (counter === 2) { res.end(def + '\n' + img); }
 		});
 		var img = '';
 		pictures.pixabayGetter( term, function ( imgApiResp ){
 			img += pictures.imgURLGetter( imgApiResp );
-			counter++
+			counter++;
 			if (counter === 2) { res.end(def + '\n' + img); }
 		});
 

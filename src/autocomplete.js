@@ -2,13 +2,13 @@ var fs = require("fs");
 
 // Read wordsDE file and splits it into 2D array, with each definition an
 // array containing English word, German word, and type of word.
-var wordsDE = fs.readFileSync("wordsDE.txt", "utf8").split("\n")
+var wordsDE = fs.readFileSync("text/wordsDE.txt", "utf8").split("\n")
                                                     .map(x => x.split('\t'));
 
-var wordsES = fs.readFileSync("wordsES.txt", "utf8").split("\n")
+var wordsES = fs.readFileSync("text/wordsES.txt", "utf8").split("\n")
                                                     .map(x => x.split('\t'));
 
-var wordsFR = fs.readFileSync("wordsFR.txt", "utf8").split("\n")
+var wordsFR = fs.readFileSync("text/wordsFR.txt", "utf8").split("\n")
                                                     .map(x => x.split('\t'));
 
 
@@ -33,7 +33,7 @@ function autotranslate( url ){
         var reg1 = new RegExp( '^' + word + '$');
         var lowerWord = dict[i][0].toLowerCase();
         if( reg1.test( lowerWord )  ){
-            // if the English word of a definition array matches the word, push the 
+            // if the English word of a definition array matches the word, push the
             //whole definition, stripped of annotations (which would be in sq. brackets or parentheses)
             results.push( dict[i].map(x => x.replace(/\[[^\[\]]+\]/g, '').replace(/\([^\(\)]+\)/g, '')) );
             // once results has 10 items, stop searching
@@ -46,7 +46,7 @@ function autotranslate( url ){
         var reg2 = new RegExp( '^' + word );
         var lowerWord2 = dict[j][0].toLowerCase();
         if( reg2.test( lowerWord2 ) && results.filter(x => x[0] === lowerWord2).length === 0 ){
-            // if the English word of a definition array matches the word, push the 
+            // if the English word of a definition array matches the word, push the
             //whole definition, stripped of annotations (which would be in sq. brackets or parentheses)
             results.push( dict[j].map(x => x.replace(/\[[^\[\]]+\]/g, '').replace(/\([^\(\)]+\)/g, '')) );
             // once results has 10 items, stop searching

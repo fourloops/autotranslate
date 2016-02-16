@@ -12,11 +12,21 @@ tape('pixabayGetter function should return an array of objects with the results 
 });
 
 tape('imgURLGetter function should return a string with an webformatURL (at random)',function(t){
-    func.pixabayGetter('stunned', function(res) {
-        var actual = func.imgURLGetter( res )
+    func.pixabayGetter('stunned', function( res ) {
+        var actual = func.imgURLGetter( res );
         t.ok( typeof actual, 'string', 'result is a string'  );
         t.ok( actual.indexOf('.jpg') > -1, 'result ends with ".jpg" and so is an image url');
-        t.ok( actual.indexOf('https://pixabay.com/get/') > -1, 'result gets image URL using pixabay API')
+        t.ok( actual.indexOf('https://pixabay.com/get/') > -1, 'result gets image URL using pixabay API');
+        t.end();
+    });
+});
+
+tape('imgURLGetter should return a standard 404 image URL if the picture has not been found on pixabay', function(t){
+    func.pixabayGetter('xbrgltyvswq', function( res ){
+        var actual = func.imgURLGetter( res );
+        t.ok( typeof actual, 'string', 'result is a string'  );
+        t.ok( actual.indexOf('.png') > -1, 'result ends with ".png" and so is an image url (not from pixabay)');
+        t.ok( actual.indexOf('assets/not-found') > -1, 'result gets image from assets folder');
         t.end();
     });
 });
