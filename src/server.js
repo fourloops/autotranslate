@@ -6,7 +6,7 @@ var define	= require('./define.js');
 var pictures = require('./pixabay.js');
 
 
-var port = process.env.PORT;
+var port = process.env.PORT || 4000;
 
 function handler(req, res) {
 	var url = req.url;

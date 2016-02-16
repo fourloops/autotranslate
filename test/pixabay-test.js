@@ -4,7 +4,6 @@ var func = require('../src/pixabay.js');
 tape('pixabayGetter function should return an array of objects with the results of the call to pixabay api (taking a word as a parameter)',function(t){
     func.pixabayGetter( 'confused', function(res){
         var arrObjs = JSON.parse(res).hits;
-        console.log(arrObjs);
         t.ok( arrObjs instanceof Array, 'response from Pixabay API is an array' );
         t.ok( arrObjs[0] instanceof Object, 'which has objects in it');
         t.end();
