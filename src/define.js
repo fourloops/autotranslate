@@ -25,7 +25,7 @@ function definitionFilter( apiResp ) {
 
 //function that returns a default error message in case of an error
 function noDefinition() {
-    return '{"en":["Four Zero Four","Sorry, we can\'t find your word."],"fr":["Quatre Zéro Quatre","Désolé, nous ne pouvons pas trouver votre mot."],"es":["Cuatro Cero Cuatro","Lo sentimos, no podemos encontrar su palabra."],"de":["Vier Null Vier","Leider können wir nicht ihr wort finden."]}';
+    return '{"en":["FOUR ZERO FOUR","Sorry, we can\'t find your definition."],"fr":["QUATRE ZÉRO QUATRE","Désolé, nous ne pouvons pas trouver votre définition."],"es":["CUATRO CERO CUATRO","Lo sentimos, no podemos encontrar su definición."],"de":["VIER NULL VIER","Leider können wir nicht ihr Bestimmung finden."]}';
 }
 
 module.exports = {

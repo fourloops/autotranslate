@@ -41,7 +41,7 @@ tape('Check definitionFilter returns another stringified object containing only 
 });
 
 tape('Unrecognised user input returns a default 404 message', function (t){
-    var expected3 ='{"en":["Four Zero Four","Sorry, we can\'t find your word."],"fr":["Quatre Zéro Quatre","Désolé, nous ne pouvons pas trouver votre mot."],"es":["Cuatro Cero Cuatro","Lo sentimos, no podemos encontrar su palabra."],"de":["Vier Null Vier","Leider können wir nicht ihr wort finden."]}';
+    var expected3 ='{"en":["FOUR ZERO FOUR","Sorry, we can\'t find your definition."],"fr":["QUATRE ZÉRO QUATRE","Désolé, nous ne pouvons pas trouver votre définition."],"es":["CUATRO CERO CUATRO","Lo sentimos, no podemos encontrar su definición."],"de":["VIER NULL VIER","Leider können wir nicht ihr Bestimmung finden."]}';
     define.definitionGetter('hgjkl', function(respString){
         var actual3 = define.definitionFilter(respString);
         console.log(actual3);
