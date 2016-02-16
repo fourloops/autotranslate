@@ -2,13 +2,15 @@ var fs = require("fs");
 
 // Read wordsDE file and splits it into 2D array, with each definition an
 // array containing English word, German word, and type of word.
-var wordsDE = fs.readFileSync("wordsDE.txt", "utf8").split("\n")
+var wordsDE = fs.readFileSync("text/wordsDE.txt", "utf8").split("\n")
                                                     .map(x => x.split('\t'));
 
-var wordsES = fs.readFileSync("wordsES.txt", "utf8").split("\n")
+var wordsES = fs.readFileSync("text/wordsES.txt", "utf8").split("\n")
+                                                    .map(x => x.replace(/^to\s/, '')) 
                                                     .map(x => x.split('\t'));
 
-var wordsFR = fs.readFileSync("wordsFR.txt", "utf8").split("\n")
+var wordsFR = fs.readFileSync("text/wordsFR.txt", "utf8").split("\n")
+                                                    .map(x => x.replace(/^to\s/, ''))
                                                     .map(x => x.split('\t'));
 
 

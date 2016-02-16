@@ -80,20 +80,17 @@ tape("Server responds to request with correct translated words in German", funct
 
 tape('server should respond to the "def=" url and provide a stringified object with corresponding text and partOfSpeech upon calling the definitionGetter function', function(t){
     shot.inject(server.handler, {method: 'GET', url: 'http://localhost:4000/def=mobile'}, function(res) {
-        console.log(res);
         var defResp = res.payload.split('\n')[0];
         t.equal(res.statusCode, 200, 'server provides a successful response');
-        t.equal(defResp, '{"text":"Capable of moving or of being moved readily from place to place:  a mobile organism; a mobile missile system. ","partOfSpeech":"adjective"}', "it's a perfect match!");
+        t.equal(defResp, '{"definition":"Capable of moving or of being moved readily from place to place:  a mobile organism; a mobile missile system. ","partOfSpeech":"adjective"}', "it's a perfect match!");
         t.end();
     });
 });
 
 // -------- PIXABAY URL-GETTER TESTS ----------- //
 tape('server should respond to the "def=" url and provide a string-type url upon calling the pixabayGetter function.',function(t){
-    shot.inject(server.handler, {method:"GET", url: 'http://localhost:4000/def=stunned'}, function(res){
+    shot.inject(server.handler, {method:"GET", url: 'http://localhost:4000/def=dog'}, function(res){
         var imgURLResp = res.payload.split('\n')[1];
-        console.log(imgURLResp);
-        console.log(res.payload);
         t.equal(res.statusCode, 200,'server provides a successful response');
         t.equal(typeof imgURLResp, "string", "provides a string as a response");
         t.ok(  imgURLResp.match( /.jpg$/ ) , "aren't you stunned this works?");
