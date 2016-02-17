@@ -51,7 +51,7 @@ function autotranslate( url ){
             //whole definition, stripped of annotations (which would be in sq. brackets or parentheses)
             results.push( dict[j].map(x => x.replace(/\[[^\[\]]+\]/g, '').replace(/\([^\(\)]+\)/g, '')) );
             // once results has 10 items, stop searching
-            if( results.length >= 8 ){
+            if( results.length >= 10 ){
                 break;
             }
         }
