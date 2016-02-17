@@ -18,7 +18,7 @@ var wordsFR = fs.readFileSync("text/wordsFR.txt", "utf8").split("\n")
 
 function autotranslate( url ){
     var lang = url.split('&lang=')[1];
-    var word = url.split('&lang=')[0].replace('/word=', '').toLowerCase();
+    var word = url.split('&lang=')[0].replace('/word=', '').toLowerCase().replace('%20', ' ');
     var dict;
     if(lang === 'es'){
         dict = wordsES;
