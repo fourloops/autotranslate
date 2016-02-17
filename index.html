@@ -12,13 +12,14 @@
             <div class="inline-btn right"><button id="de">DE</button></div>
         </div>
         <div class="english boxes">
-            <input id='myInput' type="text" name="name" placeholder="Enter Word Here" autocomplete="false">
-            <ul id='suggestions'></ul>
+            <input id='myInput' type="text" name="name" placeholder="Enter word here:" autocomplete="false" autofocus>
+            <div class="centered">
+            <ul id='suggestions'></ul></div>
             <div id="definition" class="definition"></div>
         </div>
-        <div id="foreignBoxes" class="foreign boxes" placeholder="Translations:">
-            <p id="result" class="language">Translations:</p>
-            <ul id='translations'></ul>
+        <div id="foreignBoxes" class="foreign boxes">
+            <input id="result" type="text" name="name" placeholder="Translations:" readonly>
+            <div class="centered"><ul id='translations'></ul></div>
             <div id="foreignMessage" class="definition"></div>
         </div>
 

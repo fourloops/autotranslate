@@ -17,6 +17,12 @@ document.getElementById('es').addEventListener('click', function(e){
 
 function toggleClasses(lang){
 	currentLang = lang;
+	document.getElementById('translations').innerHTML='';
+	document.getElementById('foreignMessage').innerHTML='';
+	document.getElementById('suggestions').innerHTML='';
+	document.getElementById('definition').innerHTML = '';
+	document.getElementById('definition').classList.remove('visible');
+	document.getElementById('result').value = '';
 	document.getElementById('fr').classList.remove('currentLanguage');
 	document.getElementById('es').classList.remove('currentLanguage');
 	document.getElementById('de').classList.remove('currentLanguage');
@@ -80,6 +86,7 @@ function getDefinition(word){
 
 			// the body's backgroundImage will change to the image fetched from pixabay
 			document.body.style.backgroundImage = "url(" + imgURL + ")";
+
 		}
 	};
 	http.open("GET", 'def=' + word);
@@ -94,7 +101,8 @@ document.getElementById("myInput").addEventListener('keyup', function(k){
 		document.getElementById('translations').innerHTML='';
 		document.getElementById('foreignMessage').innerHTML='';
 		document.getElementById('suggestions').innerHTML='';
-		document.getElementById('definition').innerHTML='';
+		document.getElementById('definition').innerHTML = '';
+		document.getElementById('result').value = '';
 		checkLength();
 	}
 	// if "ENTER"
@@ -116,8 +124,8 @@ window.addEventListener('keydown', function(k){
 			}
 			document.getElementsByClassName("word")[count].classList.add("focus");
 			document.getElementsByClassName("translated")[count].classList.add("focus");
-			document.getElementById("myInput").value=document.getElementsByClassName("word")[count].innerHTML;
-			document.getElementById("result").innerHTML=document.getElementsByClassName("translated")[count].innerHTML;
+			document.getElementById("myInput").value = document.getElementsByClassName("word")[count].innerHTML;
+			document.getElementById("result").value  = document.getElementsByClassName("translated")[count].innerHTML;
 		}
 	}
 	// keyCode 40 is for pressing the arrow down key
@@ -130,8 +138,8 @@ window.addEventListener('keydown', function(k){
 			}
 			document.getElementsByClassName("word")[count].classList.add("focus");
 			document.getElementsByClassName("translated")[count].classList.add("focus");
-			document.getElementById("myInput").value=document.getElementsByClassName("word")[count].innerHTML;
-			document.getElementById("result").innerHTML=document.getElementsByClassName("translated")[count].innerHTML;
+			document.getElementById("myInput").value = document.getElementsByClassName("word")[count].innerHTML;
+			document.getElementById("result").value  = document.getElementsByClassName("translated")[count].innerHTML;
 		}
 	}
 });
